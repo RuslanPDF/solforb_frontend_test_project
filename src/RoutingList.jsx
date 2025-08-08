@@ -7,4 +7,14 @@ export default [
 		component: Pages.Home,
 		type: Constants.WARE_HOUSE_ROUTING_TYPE
 	},
+	{
+		path: "/receipt/form/:id",
+		component: Pages.ReceiptForm,
+		type: Constants.WARE_HOUSE_ROUTING_TYPE
+	},
+	{
+		path: "/receipt/form",
+		component: Pages.ReceiptForm,
+		type: Constants.WARE_HOUSE_ROUTING_TYPE
+	},
 ]

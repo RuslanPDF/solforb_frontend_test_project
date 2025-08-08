@@ -1,14 +1,15 @@
-import { useState, useEffect, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import {useState, useEffect, useMemo} from 'react';
+import {useSelector} from 'react-redux';
 import {
 	Box, Typography, Grid, Button, Table, TableHead, TableRow, TableCell, TableBody, Paper,
 	FormControl, InputLabel, Select, MenuItem, OutlinedInput, Chip, Stack, TextField
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import {DatePicker, LocalizationProvider} from '@mui/x-date-pickers';
+import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns';
 import ruLocale from 'date-fns/locale/ru';
 import axios from 'axios';
+
 
 export default function Home() {
 	const [dateFrom, setDateFrom] = useState(null);
@@ -180,7 +181,7 @@ export default function Home() {
 							variant="outlined"
 							color="success"
 							size="large"
-							startIcon={<AddIcon />}
+							startIcon={<AddIcon/>}
 							// href TODO
 						>
 							Добавить
