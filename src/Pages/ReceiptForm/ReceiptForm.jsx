@@ -8,6 +8,7 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from "axios";
 import {useSelector} from 'react-redux';
+import {useNavigate} from "react-router-dom";
 
 const createRow = (resource = '', unit = '', amount = '', id = null) => ({
 	resource, unit, amount, id
@@ -16,6 +17,7 @@ const createRow = (resource = '', unit = '', amount = '', id = null) => ({
 export default function ReceiptForm() {
 	const {id} = useParams();
 	const isEditMode = Boolean(id);
+	const navigate = useNavigate();
 
 	const {data: resourceList = [], loading: resourceLoading} = useSelector(state => state.resource);
 	const {data: unitList = [], loading: unitLoading} = useSelector(state => state.unit);
@@ -69,6 +71,15 @@ export default function ReceiptForm() {
 	const handleAdd = () => setRows([...rows, createRow()]);
 
 	const handleDelete = idx => setRows(rows.filter((_, i) => i !== idx));
+
+	const handleDeleteDocument = async () => {
+		try {
+			await axios.delete(`https://localhost:3000/api/Receipt/${id}`)
+				.then(() => navigate(`/`));
+		} catch (err) {
+			alert("Ошибка удаление документа!")
+		}
+	}
 
 	const handleChange = (idx, field, value) => setRows(
 		rows.map((row, i) => i === idx ? {...row, [field]: value} : row)
@@ -130,7 +141,7 @@ export default function ReceiptForm() {
 			>
 				Сохранить
 			</Button>
-			<Button variant="contained" color="error">Удалить</Button>
+			<Button variant="contained" color="error" onClick={handleDeleteDocument}>Удалить</Button>
 			<TableContainer component={Paper} sx={{mt: 2}}>
 				<Table>
 					<TableHead>
@@ -160,9 +171,9 @@ export default function ReceiptForm() {
 											disabled={resourceLoading}
 										>
 											<MenuItem value=""><em>Не выбран</em></MenuItem>
-											{resourceList?.map(res =>
-												<MenuItem key={res.id} value={res.id}>{res.name}</MenuItem>
-											)}
+											{resourceList?.map(res => {
+												return res.status && <MenuItem key={res.id} value={res.id}>{res.name}</MenuItem>
+											})}
 										</Select>
 										{duplicateIdx.includes(i) &&
 											<FormHelperText>Такой ресурс уже есть</FormHelperText>
@@ -180,9 +191,9 @@ export default function ReceiptForm() {
 											disabled={unitLoading}
 										>
 											<MenuItem value=""><em>Не выбрана</em></MenuItem>
-											{unitList?.map(unit =>
-												<MenuItem key={unit.id} value={unit.id}>{unit.name}</MenuItem>
-											)}
+											{unitList?.map(unit => {
+												return unit.status && <MenuItem key={unit.id} value={unit.id}>{unit.name}</MenuItem>
+											})}
 										</Select>
 									</FormControl>
 								</TableCell>
