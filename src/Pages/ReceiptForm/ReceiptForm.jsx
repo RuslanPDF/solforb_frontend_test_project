@@ -67,7 +67,9 @@ export default function ReceiptForm() {
 	}, [id, isEditMode]);
 
 	const handleAdd = () => setRows([...rows, createRow()]);
+
 	const handleDelete = idx => setRows(rows.filter((_, i) => i !== idx));
+
 	const handleChange = (idx, field, value) => setRows(
 		rows.map((row, i) => i === idx ? {...row, [field]: value} : row)
 	);
@@ -105,7 +107,7 @@ export default function ReceiptForm() {
 	return (
 		<Box p={2}>
 			<h1>Поступление</h1>
-			<Box display="flex" gap={2} mb={2}>
+			<Box display="flex" gap={2} mb={2} mt={2}>
 				<TextField
 					label="Номер"
 					value={number}
@@ -158,7 +160,7 @@ export default function ReceiptForm() {
 											disabled={resourceLoading}
 										>
 											<MenuItem value=""><em>Не выбран</em></MenuItem>
-											{resourceList.map(res =>
+											{resourceList?.map(res =>
 												<MenuItem key={res.id} value={res.id}>{res.name}</MenuItem>
 											)}
 										</Select>
