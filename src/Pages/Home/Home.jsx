@@ -1,5 +1,6 @@
 import {useState, useEffect, useMemo} from 'react';
 import {useSelector} from 'react-redux';
+import {useNavigate} from "react-router-dom";
 import {
 	Box, Typography, Grid, Button, Table, TableHead, TableRow, TableCell, TableBody, Paper,
 	FormControl, InputLabel, Select, MenuItem, OutlinedInput, Chip, Stack, TextField
@@ -12,6 +13,7 @@ import axios from 'axios';
 
 
 export default function Home() {
+	const navigate = useNavigate();
 	const [dateFrom, setDateFrom] = useState(null);
 	const [dateTo, setDateTo] = useState(null);
 	const [selectedNumbers, setSelectedNumbers] = useState([]);
@@ -26,8 +28,6 @@ export default function Home() {
 	const unitDict = useMemo(() => Object.fromEntries(unitList.map(u => [u.id, u])), [unitList]);
 	const resourceOptions = useMemo(() => resourceList, [resourceList]);
 	const unitOptions = useMemo(() => unitList, [unitList]);
-
-	console.log(resourceList)
 
 	const fetchReceipts = async () => {
 		try {
@@ -182,7 +182,7 @@ export default function Home() {
 							color="success"
 							size="large"
 							startIcon={<AddIcon/>}
-							// href TODO
+							href="receipt/form"
 						>
 							Добавить
 						</Button>
@@ -203,7 +203,7 @@ export default function Home() {
 					</TableHead>
 					<TableBody>
 						{flattenedRows.map((row, i) => (
-							<TableRow key={i}>
+							<TableRow key={i} hover style={{cursor: 'pointer'}} onClick={() => navigate(`/receipt/form/${row.id}`)}>
 								{row.isFirst && (
 									<>
 										<TableCell rowSpan={row.resourcesCount}>{row.number}</TableCell>
