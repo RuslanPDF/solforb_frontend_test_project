@@ -17,4 +17,14 @@ export default [
 		component: Pages.ReceiptForm,
 		type: Constants.WARE_HOUSE_ROUTING_TYPE
 	},
+	{
+		path: "/unit",
+		component: Pages.UnitList,
+		type: Constants.DIRECTORIES_ROUTING_TYPE
+	},
+	{
+		path: "/resource",
+		component: Pages.ResourceList,
+		type: Constants.DIRECTORIES_ROUTING_TYPE
+	},
 ]

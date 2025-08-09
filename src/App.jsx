@@ -48,12 +48,12 @@ function App() {
 		list: [
 			{
 				id: 1,
-				path: "/",
+				path: "/unit",
 				name: "Единицы измерения"
 			},
 			{
 				id: 2,
-				path: "/",
+				path: "/resource",
 				name: "Ресурсы"
 			},
 		]
